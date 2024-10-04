@@ -1,4 +1,4 @@
-# Free Email Sending API
+# Free Email Sender API
 
 Free and open source email sending API with Cloudflare workers and email forwarding.
 
