@@ -1,0 +1,10 @@
+name = "free-email-sender-api"
+main = "worker.js"
+compatibility_date = "2023-10-04"
+
+[vars]
+AUTH_TOKEN = "your_authorization_token"
+
+[[email]]
+binding = "EMAIL"
+destination_address = "your-email@example.com"
