@@ -2,6 +2,8 @@
 
 Free and open source email sending API with Cloudflare workers and email forwarding.
 
+> Due Cloudflare limitations, with this API you can only send email to [verified email addresses](https://developers.cloudflare.com/email-routing/setup/email-routing-addresses/#destination-addresses).
+
 ## Features
 
 - **Send Emails**: Send emails by making a `POST` request to the `/send` endpoint.
@@ -15,39 +17,40 @@ Free and open source email sending API with Cloudflare workers and email forward
 
 ## Setup
 
-### 1. Activate Cloudflare Email Routing
+### 1. Clone the Repository
 
-- Log in to your Cloudflare dashboard.
-- Select the domain you wish to use.
-- Navigate to **Email** > **Email Routing**.
-- Follow the instructions to set up Email Routing for your domain.
-- Ensure that you have verified your domain and configured any necessary DNS records.
-- Set up any custom addresses and specify the destination email addresses.
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
 
-### 2. Create Environment Variables
+### 2. Install Dependencies
 
-- In your Cloudflare dashboard, go to **Workers**.
-- Select **Manage Workers** and click on your worker or create a new one.
-- In the worker's settings, navigate to **Variables** > **Environment Variables**.
-- Add a new variable named `AUTH_TOKEN` and set its value to your desired authorization token.
+If you're using modules or packages, install them accordingly.
 
-### 3. Create the Worker
+### 3. Configure Wrangler
 
-- In the **Workers** section of your Cloudflare dashboard, click **Create a Service**.
-- Choose **Start from scratch**, name your worker, and click **Create service**.
-- In the worker's editor, replace the default code with the following:
+Update the `wrangler.toml` file:
 
-[worker.js](/worker.js)
+- Replace `"your-worker-name"` with your desired worker name.
+- Replace `"your_authorization_token"` with a secure token for authorization or set manually the `AUTH_TOKEN` environment variable.
+- Replace `"your-email@example.com"` with your email address or the destination configured in Cloudflare Email Routing.
 
-- Click on **Save and Deploy** to deploy your worker.
+### 4. Set Up Environment Variables
 
-### 4. Bind the Email Service
+The `AUTH_TOKEN` variable is used to validate incoming requests. Set this in your `wrangler.toml` under `[vars]`.
 
-- In the worker's settings, navigate to **Settings** > **Add binding**.
-- Under **Type**, select **Email**.
-- Set the **Variable name** to `EMAIL`.
-- Configure the email binding to use your email routing settings or destination address.
-- Save the binding.
+### 5. Bind the Email Service
+
+The `EMAIL` binding is required to use Cloudflare's email service. Ensure you have Email Routing set up in your Cloudflare dashboard.
+
+## Deployment
+
+Deploy the worker using Wrangler:
+
+```bash
+wrangler publish
+```
 
 ## Usage
 
